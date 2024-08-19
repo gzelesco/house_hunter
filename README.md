@@ -61,8 +61,9 @@ URL: https://www.pararius.com/apartment/amsterdam/12345
 Timestamp: 2023-08-20 14:30:00
 ```
 
-## Important Note
+## Important Notes
 * __Email Notifications__: Make sure to use a Gmail account for sending email notifications. For security reasons, it's recommended to use an app password instead of your regular Gmail password. You can generate an app password from your Google Account settings.
+* __Query__: There is no user interface to prepare the URLs for queries. This is because websites like Pararius already provide this functionality. Once you find a query that fits your search criteria, simply save it in this program. The program will handle the monitoring for you.
 
 ## File Structure
 ```bash
