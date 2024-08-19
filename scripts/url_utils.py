@@ -1,4 +1,4 @@
-from file_utils import read_json_file, write_json_file, clear_screen
+from scripts.file_utils import read_json_file, write_json_file, clear_screen
 
 def manage_urls(urls_file):
     """Manage the URLs (add, view, remove)."""

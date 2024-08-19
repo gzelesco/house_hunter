@@ -4,12 +4,13 @@ import threading
 import time
 import keyboard
 from datetime import datetime
-from apartment import Apartment
-from file_utils import read_json_file, write_json_file
-from email_utils import send_email
+
+from scripts.apartment import Apartment
+from scripts.file_utils import read_json_file, write_json_file
+from scripts.email_utils import send_email
 
 base_url = 'https://www.pararius.com'
-href_file = 'apartment_hrefs.json'
+href_file = 'json\\apartment_hrefs.json'
 
 def get_all_apartment_data(url):
     """Fetch all apartment data from the URL."""
@@ -38,7 +39,7 @@ def get_all_apartment_data(url):
             features_tag = listing.find('ul', class_='illustrated-features--compact')
             surface_area = features_tag.find_all('li')[0].text.strip() if features_tag else "N/A"
             rooms = features_tag.find_all('li')[1].text.strip() if features_tag else "N/A"
-            construction_year = features_tag.find_all('li')[2].text.strip() if features_tag else "N/A"
+            #construction_year = features_tag.find_all('li')[2].text.strip() if features_tag else "N/A"
 
             final_url = format_href(base_url, href)
 
@@ -49,8 +50,9 @@ def get_all_apartment_data(url):
                 price=price,
                 surface_area=surface_area,
                 rooms=rooms,
-                construction_year=construction_year,
-                url=final_url
+                construction_year="XXXX",
+                url=final_url,
+                query=url
             )
             apartments.append(apartment)
         return apartments
@@ -107,6 +109,7 @@ def monitor_apartment_changes(urls, check_interval):
             results = read_json_file(href_file)
 
             while True:
+
                 threads = []
                 for url in urls:
                     thread = threading.Thread(target=monitor_url, args=(url, results))
@@ -116,6 +119,7 @@ def monitor_apartment_changes(urls, check_interval):
                 for thread in threads:
                     thread.join()
 
+                print("End of scraping. It will start again soon...\n")
                 time.sleep(check_interval)
 
     except KeyboardInterrupt:

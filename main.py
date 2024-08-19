@@ -1,15 +1,15 @@
-from monitoring import monitor_apartment_changes
-from file_utils import read_json_file, clear_screen, view_apartment_hrefs
-from email_utils import manage_recipients, manage_email_config
-from url_utils import manage_urls
+from scripts.monitoring import monitor_apartment_changes
+from scripts.file_utils import read_json_file, clear_screen, view_apartment_hrefs
+from scripts.email_utils import manage_recipients, manage_email_config
+from scripts.url_utils import manage_urls
 from time import sleep
 
 # Constants
 CHECK_INTERVAL = 300  # 5 minutes
-urls_file = 'urls.json'
-href_file = 'apartment_hrefs.json'
-recipients_file = 'recipients.json'
-email_file = 'email_config.json'
+urls_file = 'json\\urls.json'
+href_file = 'json\\apartment_hrefs.json'
+recipients_file = 'json\\recipients.json'
+email_file = 'json\\email_config.json'
 
 def main_menu():
     """Main menu to navigate the program."""

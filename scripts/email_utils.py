@@ -1,9 +1,10 @@
 import smtplib
 from email.message import EmailMessage
-from file_utils import read_json_file, write_json_file, clear_screen
 
-email_file = 'email_config.json'
-recipients_file = 'recipients.json'
+from scripts.file_utils import read_json_file, write_json_file, clear_screen
+
+email_file = 'json\\email_config.json'
+recipients_file = 'json\\recipients.json'
 
 def send_email(apartment):
     """Send an email using Gmail with formatted apartment details."""
@@ -25,7 +26,7 @@ def send_email(apartment):
         return
 
     # Format the email subject
-    subject = f"New Apartment Listing Found: [{apartment['id']}] {apartment['title']}"
+    subject = f"New House [{apartment['id']}]: by {apartment['near_by']} - {apartment['title']}"
     
     # Correctly format price and surface area
     price = apartment['price'].replace("\u20ac", "€").replace(",", "").strip()
@@ -33,7 +34,7 @@ def send_email(apartment):
 
     # Format the email body in a more readable format
     body = f"""
-    New Apartment Found! 🏢
+    New Apartment Found near {apartment['near_by']}! 🏠
 
     ID: {apartment['id']}
     Title: {apartment['title']}
@@ -42,10 +43,10 @@ def send_email(apartment):
     Price: {price}
     Surface Area: {surface_area}
     Rooms: {apartment['rooms']}
-    Construction Year: {apartment['construction_year']}
     URL: {apartment['url']}
-    
     Timestamp: {apartment['timestamp']}
+
+    Query used: {apartment['query']}
 
     """
 
@@ -60,7 +61,7 @@ def send_email(apartment):
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(sender_email, sender_password)
             server.send_message(message)
-        print("Email sent successfully.")
+        print(f"Email sent successfully.  {apartment['near_by']} at {apartment['timestamp']}")
     except Exception as e:
         print(f"Failed to send email: {e}")
 
